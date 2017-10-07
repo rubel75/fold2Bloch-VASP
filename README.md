@@ -39,6 +39,7 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     0.000000  -0.400000   0.000000 -22.019998   0.000000
     0.000000  -0.200000   0.000000 -22.019998   0.000000
     0.200000   0.000000   0.000000 -22.019998   0.000000
+    ...
 
 ### Plotting results
 The Matlab code `utils/ubs_dots_VASP.m` is designed in plotting the band structure with the Bloch weights. Please refer to its input section for description of user input variables. Below is a sample of the Matlab plot for the unfolded band structure of a dilute GaP:N alloy.
