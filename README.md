@@ -10,6 +10,7 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 
 ### Installation:
 The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply run
+
 `$ mkdir fold2Bloch`
 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
