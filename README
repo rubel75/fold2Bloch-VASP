@@ -1,0 +1,5 @@
+ulimit -s unlimited
+
+source ~/.bashrc.vasp
+
+ifort -assume byterecl fold2Bloch.f90 -g -traceback -check all -debug all
