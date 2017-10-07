@@ -1,7 +1,7 @@
 function ubs_dots
 % Plot undolded band structure
 % 
-% modified 21 Jan 2016
+% modified Oct 7, 2017
 
 %% Init. parameters
 KPATH = [1/2 0 0;...
