@@ -17,7 +17,7 @@ The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply 
 `$ cd fold2Bloch-VASP; make`
 
 ### Execution
-Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). Then execute
+Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The folliwing Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) Then execute
 
 `/path/to/fold2Bloch WAVECAR FX:FY:FZ [-ncl]`
 
@@ -39,6 +39,9 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     0.000000  -0.400000   0.000000 -22.019998   0.000000
     0.000000  -0.200000   0.000000 -22.019998   0.000000
     0.200000   0.000000   0.000000 -22.019998   0.000000
+
+### Plotting results
+The Matlab code `utils/ubs_dots_VASP.m` is designed in plotting the band structure with the Bloch weights. Please refer to its input section for description of user input variables.
 
 ### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
