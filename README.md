@@ -8,6 +8,11 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 * Sheikh Jamil Ahmed
 * Oleg Rubel
 
+### Installation:
+
+`$ mkdir fold2Bloch`
+
+
 For installation and tutorials, please refer to [wiki page](https://github.com/rubel75/fold2Bloch/wiki)
 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
