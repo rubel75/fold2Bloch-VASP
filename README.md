@@ -50,3 +50,15 @@ The Matlab code `utils/ubs_dots_VASP.m` is designed in plotting the band structu
 If you find the results usefull and publishable, we will appreciate citing the following papers:
 * O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
 * V. Popescu and A. Zunger "Effective Band Structure of Random Alloys", [Phys. Rev. Lett. **104**, 236403 (2010)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.104.236403).
+
+### License
+
+fold2Bloch is free  software: you can redistribute  it and/or modify
+it under the  terms of the GNU General Public  License as published by
+the Free Software Foundation, either version  3 of the License, or (at
+your option) any later version.
+
+fold2Bloch is  distributed in the hope  that it will be useful, but
+WITHOUT   ANY  WARRANTY;   without  even   the  implied   warranty  of
+MERCHANTABILITY  or FITNESS  FOR A  PARTICULAR PURPOSE.   See  the GNU
+General Public License for more details.
