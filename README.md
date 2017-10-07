@@ -4,8 +4,7 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 
 ### Contributors:
 * Oleg Rubel (McMaster University <oleg.v.rubel@gmail.com>)
-* Michael Widom (Carnegie Mellon University)
-* Randall Feenstra (Carnegie Mellon University)
+* Michael Widom and Randall Feenstra (Carnegie Mellon University)
 * Anton Bokhanchuk (Confederation College)
 
 ### Installation:
