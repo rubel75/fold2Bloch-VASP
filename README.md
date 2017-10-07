@@ -18,11 +18,11 @@ Perform the band structure calculation and generate WAVECAR file for the k-mesh 
 
 Options:
 
-  WAVECAR -- name of the input VASP wavefunction file
-  
-  FX, FY, FZ -- multiplicity of the primitive cell that was used to construct a supercell
-  
-  -ncl -- the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
+  `WAVECAR` -- name of the input VASP wavefunction file
+
+  `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell
+
+  `-ncl` -- the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
 
