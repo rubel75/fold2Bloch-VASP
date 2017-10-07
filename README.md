@@ -35,7 +35,7 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     0.000000  -0.200000   0.000000 -22.019998   0.000000
     0.200000   0.000000   0.000000 -22.019998   0.000000
 
-### Reference
+### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
 * O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
 * V. Popescu and A. Zunger "Effective Band Structure of Random Alloys", [Phys. Rev. Lett. **104**, 236403 (2010)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.104.236403).
