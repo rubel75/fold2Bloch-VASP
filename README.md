@@ -1,6 +1,6 @@
 ## fold2Bloch
 
-Unfolding of first-principle electronic band structure obtained with [VASP](https://www.vasp.at) DFT code. Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
+Unfolding of first-principle electronic band structure obtained with the Vienna Ab initio Simulation Package ([VASP](https://www.vasp.at)). Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
 
 ### Contributors:
 * Oleg Rubel (McMaster University <oleg.v.rubel@gmail.com>)
@@ -10,7 +10,7 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 ### Installation:
 First clone the GitHub repository
 
-`$ git clone https://github.com/rubel75/fold2Bloch-VASP.git`
+`$ git clone https://github.com/rubel75/fold2Bloch-VASP`
 
 The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply execute
 
