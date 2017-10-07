@@ -22,7 +22,7 @@ Options:
 
   `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell. Note: the supercell should be constracted on the basis of the primitive cell (not conventional).
 
-  `-ncl` -- the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
+  `-ncl` -- optional switch that needs to be activated when the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
 
 ### Output
 Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-spin-polarized calculation and two files for the spin-polarized or spinor (vasp_ncl) calculations. Below is a sample of an output file.
@@ -36,7 +36,9 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     0.200000   0.000000   0.000000 -22.019998   0.000000
 
 ### Reference
-If you find the results usefull and publishable, we will appreciate citing the following paper:
+If you find the results usefull and publishable, we will appreciate citing the following papers:
+* O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
+* 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
 
 Please communicate your feedback, support or feature requests via WIEN2k [mailing list](http://www.wien2k.at/reg_user/mailing_list)
