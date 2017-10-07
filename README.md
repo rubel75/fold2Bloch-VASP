@@ -11,7 +11,15 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 ### Installation:
 The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply run
 
-`$ mkdir fold2Bloch`
+### Execution
+Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest. Then execute
+
+`/path/to/fold2Bloch WAVECAR FX:FY:FZ [-ncl]`
+
+Options:
+  WAVECAR -- name of the input VASP wavefunction file
+  FX, FY, FZ -- multiplicity of the primitive cell that was used to construct a supercell
+  -ncl -- the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
 
