@@ -12,7 +12,7 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply run
 
 ### Execution
-Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest. Then execute
+Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). Then execute
 
 `/path/to/fold2Bloch WAVECAR FX:FY:FZ [-ncl]`
 
