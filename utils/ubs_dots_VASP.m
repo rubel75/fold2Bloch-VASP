@@ -3,7 +3,7 @@ function ubs_dots
 % 
 % modified 21 Jan 2016
 
-%% Init. parameters 
+%% Init. parameters
 KPATH = [1/2 0 0;...
          0 0 0; ...
          1/2 1/2 0]; % k-point path
