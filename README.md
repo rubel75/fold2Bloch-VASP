@@ -1,6 +1,6 @@
 ## fold2Bloch
 
-Unfolding of first-principle electronic band structure obtained with [VASP](https://www.vasp.at) DFT code. Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
+Unfolding of first-principle electronic band structure obtained with the Vienna Ab initio Simulation Package ([VASP](https://www.vasp.at)). Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
 
 ### Contributors:
 * Oleg Rubel (McMaster University <oleg.v.rubel@gmail.com>)
@@ -10,14 +10,14 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 ### Installation:
 First clone the GitHub repository
 
-`$ git clone https://github.com/rubel75/fold2Bloch-VASP.git`
+`$ git clone https://github.com/rubel75/fold2Bloch-VASP`
 
 The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply execute
 
 `$ cd fold2Bloch-VASP; make`
 
 ### Execution
-Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). Then execute
+Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The folliwing Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) Then execute
 
 `/path/to/fold2Bloch WAVECAR FX:FY:FZ [-ncl]`
 
@@ -39,6 +39,9 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     0.000000  -0.400000   0.000000 -22.019998   0.000000
     0.000000  -0.200000   0.000000 -22.019998   0.000000
     0.200000   0.000000   0.000000 -22.019998   0.000000
+
+### Plotting results
+The Matlab code `utils/ubs_dots_VASP.m` is designed in plotting the band structure with the Bloch weights. Please refer to its input section for description of user input variables.
 
 ### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
