@@ -11,7 +11,7 @@
 !                 construct a supercell
 !   -ncl -- the WAVECAR is produced by vasp_ncl code, which implies
 !           that the wavefunctions are spinors
-!           (defauls: assumption that WAVECAR comes from vasp_ctd or 
+!           (defauls: assumption that WAVECAR comes from vasp_std or 
 !           vasp_gam)
 !
 ! Output:
