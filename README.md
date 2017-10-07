@@ -27,7 +27,7 @@ Options:
 
   `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell. Note: the supercell should be constracted on the basis of the primitive cell (not conventional).
 
-  `-ncl` -- optional switch that needs to be activated when the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (defauls: assumption that WAVECAR comes from vasp_std or vasp_gam)
+  `-ncl` -- optional switch that needs to be activated when the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (default assumption is that WAVECAR comes from vasp_std or vasp_gam).
 
 ### Output
 Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-spin-polarized calculation and two files for the spin-polarized or spinor (vasp_ncl) calculations. Below is a sample of an output file.
