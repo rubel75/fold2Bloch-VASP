@@ -1,10 +1,23 @@
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+% This Matlab script is designed to fold a k-path into the BZ of 
+% a supercell and produce KPOINTS file for VASP. The wavefunctions 
+% generated with VASP can be unfolded back to a desured k-path set 
+% below.
+%
+% (c) Oleg Rubel
+%
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 clear all;
 
+%% User input
 kpath = [1/2 0 0; ...
          0 0 0;...
          1/2 1/2 0];
-npath = [10 15];
-folds = [1 2 3];
+npath = [10 15]; % # of points along each segment
+folds = [1 2 3]; % multiplicity used to create a supercell
 
 %% Check
 if (size(kpath,1)-1 ~= length(npath))
