@@ -25,6 +25,10 @@ INTEGER :: ifarg ! position of ":" in the folds input argument
 INTEGER :: ios ! I/O status
 CHARACTER(len=256) :: arg2cut ! cut folds [1:]2:3
 
+!! Print version
+
+WRITE(6,*) 'fold2Bloch for VASP version Oct 7, 2017'
+
 !! Check if to print help
 
 IF ((nargs .eq. 1).and.(arg1(1:2) .eq. '-h')) THEN
