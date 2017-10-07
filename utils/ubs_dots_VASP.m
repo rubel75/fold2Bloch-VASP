@@ -31,7 +31,7 @@ clrmp = jet;    % flipud(gray)
                 % jet
 G = [ 1.636118     -0.9446132     -0.6679425;    
       0.0000000E+00  0.9446141     -0.3339715;    
-      0.0000000E+00  0.0000000E+00  0.6679430 ];  % Reciprocal latt. vect. from *.outputkgen
+      0.0000000E+00  0.0000000E+00  0.6679430 ];  % Reciprocal latt. vectors
 
 
 %% INITIALIZATION
