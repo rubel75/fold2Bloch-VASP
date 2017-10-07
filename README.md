@@ -43,6 +43,8 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
 ### Plotting results
 The Matlab code `utils/ubs_dots_VASP.m` is designed in plotting the band structure with the Bloch weights. Please refer to its input section for description of user input variables.
 
+![alt text](https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png)
+
 ### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
 * O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
