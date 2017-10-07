@@ -9,7 +9,13 @@ Unfolding of first-principle electronic band structure obtained with [VASP](http
 * Anton Bokhanchuk (Confederation College)
 
 ### Installation:
-The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply run
+First clone the GitHub repository
+
+`$ git clone https://github.com/rubel75/fold2Bloch-VASP.git`
+
+The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply execute
+
+`$ cd fold2Bloch-VASP; make`
 
 ### Execution
 Perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). Then execute
