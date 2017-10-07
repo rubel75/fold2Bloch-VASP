@@ -3,17 +3,14 @@
 Unfolding of first-principle electronic band structure obtained with [VASP](https://www.vasp.at) DFT code
 
 ### Contributors:
-* Anton Bokhanchuk
-* Elias Assmann
-* Sheikh Jamil Ahmed
-* Oleg Rubel
+* Oleg Rubel (McMaster University <oleg.v.rubel@gmail.com>)
+* Michael Widom (Carnegie Mellon University)
+* Randall Feenstra (Carnegie Mellon University)
+* Anton Bokhanchuk (Confederation College)
 
 ### Installation:
-
+The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply run
 `$ mkdir fold2Bloch`
-
-
-For installation and tutorials, please refer to [wiki page](https://github.com/rubel75/fold2Bloch/wiki)
 
 Examples of "real life" applications can be found in [arXiv:1405.4218](http://arxiv.org/abs/1405.4218)
 
