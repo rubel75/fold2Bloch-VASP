@@ -14,7 +14,6 @@ KLABEL = {'L'; 'G'; 'X'};
 finpt = 'WAVECAR_spinor1.f2b'; % input file name
 Ef = 5.849894; % Fermi energy (Ry)
 ERANGE = [Ef-6 Ef+8]; % energy range for plot (Ry)
-ry2ev = 1; % Ry -> eV conversion factor
 pwr = 1/1; % power for result plotting
          % 1 - linear scale, 1/2 - sqrt, etc.
          % 0 - folded bands (needs wth = 0)
@@ -92,9 +91,9 @@ set(gca,'FontSize',fontSize);
 set(hFig, 'Position', PLTSZ, 'PaperPositionMode','auto')
 map = colormap(clrmp);
 WGHTRS = rescale(WGHT,pwr);
-scatter(L,(ENE-Ef)*ry2ev, WGHTRS*msz, WGHTRS,'LineWidth',lwdth);
+scatter(L,(ENE-Ef), WGHTRS*msz, WGHTRS,'LineWidth',lwdth);
 hold on;
-axis([XTICKS(1) XTICKS(end) min((ENE-Ef)*ry2ev) max((ENE-Ef)*ry2ev)])
+axis([XTICKS(1) XTICKS(end) ERANGE(1)-Ef ERANGE(2)-Ef])
 yticks = get(gca,'ytick');
 set(gca,'YTick',yticks);
 for i = 1 : length(yticks)
