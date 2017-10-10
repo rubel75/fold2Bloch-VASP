@@ -2,7 +2,7 @@ function ubs_dots
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Plot undolded band structure
 % 
-% (c) Oleg Rubel, modified Oct 7, 2017
+% (c) Oleg Rubel, modified Oct 10, 2017
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %% Init. parameters
