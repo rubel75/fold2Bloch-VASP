@@ -64,6 +64,10 @@ LOGICAL :: spinor ! WF is spinor?
 data c/0.262465831d0/ 
 pi=4.*atan(1.)
 
+!! Print version
+
+WRITE(6,*) 'fold2Bloch for VASP version Oct 11, 2017'
+
 !! Get command line imput arguments
 
 CALL GETARG(1,arg1)
