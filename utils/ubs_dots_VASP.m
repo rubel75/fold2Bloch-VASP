@@ -13,7 +13,7 @@ FOLDS = [1 2 3]; % multiplicity in the corresponding directions used when constr
 KLABEL = {'L'; 'G'; 'X'};
 finpt = 'WAVECAR_spinor1.f2b'; % input file name
 Ef = 5.849894; % Fermi energy (Ry)
-ERANGE = [Ef-6 Ef+8]; % energy range for plot (Ry)
+ERANGE = [Ef-6 Ef+8]; % energy range for plot (eV)
 pwr = 1/1; % power for result plotting
          % 1 - linear scale, 1/2 - sqrt, etc.
          % 0 - folded bands (needs wth = 0)
