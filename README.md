@@ -1,6 +1,6 @@
 ## fold2Bloch
 
-Unfolding of first-principle electronic band structure obtained with the Vienna Ab initio Simulation Package ([VASP](https://www.vasp.at)). Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
+The fold2Bloch utility is designed to unfold the band structure of a supercell obtained with the Vienna Ab initio Simulation Package ([VASP](https://www.vasp.at)) and compute an effective band structure in a primitive representation. It facilitates interpretation of large-scale electronic structure calculations, where the Bloch character of electronic eigenstates is perturbed by a disorder (defects, alloy elements, etc). Reading of wavefunctions is adapted from the [WaveTrans](http://www.andrew.cmu.edu/user/feenstra/wavetrans) code.
 
 ### Contributors:
 * Oleg Rubel (McMaster University <oleg.v.rubel@gmail.com>)
