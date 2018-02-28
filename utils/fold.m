@@ -5,7 +5,7 @@
 % generated with VASP can be unfolded back to a desired k-path set 
 % below.
 %
-% (c) Oleg Rubel, modified Oct 28, 2018
+% (c) Oleg Rubel, modified Feb 28, 2018
 %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
