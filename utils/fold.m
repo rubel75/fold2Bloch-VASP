@@ -5,7 +5,7 @@
 % generated with VASP can be unfolded back to a desired k-path set 
 % below.
 %
-% (c) Oleg Rubel, modified Oct 11, 2017
+% (c) Oleg Rubel, modified Oct 28, 2018
 %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -13,11 +13,11 @@ clear all;
 
 %% User input
 
-kpath = [1/2 0 0; ...
-         0 0 0;...
+kpath = [0 0 0; ...
+         1/2 1/2 1/2;...
          1/2 1/2 0]; % desired k-path after unfolding
-npath = [10 15]; % # of points along each segment
-folds = [1 2 3]; % multiplicity used to create a supercell
+npath = [17 10]; % # of points along each segment
+folds = [2 2 2]; % multiplicity used to create a supercell
 
 
 %% Check input
@@ -61,6 +61,11 @@ for i=1:npt
     end
 end
 
+% clean up
+ksc=round(ksc*1e14)/1e14; % round to 14 decimal points
+ksc=unique(ksc,'rows','stable'); % eliminate duplicates
+npt=size(ksc,1); % recalculate number of k-points
+
 
 %% Write KPOINTS file
 
@@ -70,9 +75,9 @@ fprintf(fileID,'%8i\n',npt);
 fprintf(fileID,'%18s\n','Reciprocal lattice');
 for i=1:npt
     if (i ~= npt) % print with return at the end "\n"
-        fprintf(fileID,'%13.10f %13.10f %13.10f  1\n',ksc(i,:));
+        fprintf(fileID,'%17.14f %17.14f %17.14f  0\n',ksc(i,:));
     else % no return for the last line
-        fprintf(fileID,'%13.10f %13.10f %13.10f  1',ksc(i,:));
+        fprintf(fileID,'%17.14f %17.14f %17.14f  0',ksc(i,:));
     end
 end
 fclose(fileID);
