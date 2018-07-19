@@ -27,9 +27,15 @@ INTEGER :: j, ig1, ig2, ig3, ig1p, ig2p, ig3p ! counters
 !!$*   constant 'c' below is 2m/hbar**2 in units of 1/eV Ang^2 (value is
 !!$*   adjusted in final decimal places to agree with VASP value; program
 !!$*   checks for discrepancy of any results between this and VASP values)
+! (Oleg Rubel Jul 19, 2018)
+! in VASP manual HSQDTM = (plancks CONSTANT/(2*PI))**2/(2*ELECTRON MASS)
+! HSQDTM = RYTOEV*AUTOA*AUTOA
+! AUTOA=0.529177249_q,RYTOEV=13.605826_q
+! thus HSQDTM = 13.605826*0.529177249*0.529177249 = 0.262465822502110
 
-REAL(kind=8), PARAMETER :: c=0.262465831
-REAL(kind=8), PARAMETER :: pi=4.*atan(1.)
+!REAL(kind=8), PARAMETER :: c=0.262465831 ! original from waveTrans, but there was a case when it did not work
+!REAL(kind=8), PARAMETER :: c=0.262465822502110 ! according to constant.inc, but there was a case when it did not work
+REAL(kind=8), PARAMETER :: c=0.26246585 ! that works error free so far...
 
 ncnt=0
 do ig3=0,2*nb3max
@@ -63,6 +69,8 @@ IF (spinor) THEN
         stop
     endif
 ELSE
+    write(6,*) '*** error - computed no. of PWs', ncnt, &
+            ' != input no. of PWs', nplane
     if (ncnt.ne.nplane) then
         write(6,*) '*** error - computed no. of PWs', ncnt, &
             ' != input no. of PWs', nplane
