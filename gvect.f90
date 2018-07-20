@@ -69,8 +69,6 @@ IF (spinor) THEN
         stop
     endif
 ELSE
-    write(6,*) '*** error - computed no. of PWs', ncnt, &
-            ' != input no. of PWs', nplane
     if (ncnt.ne.nplane) then
         write(6,*) '*** error - computed no. of PWs', ncnt, &
             ' != input no. of PWs', nplane
