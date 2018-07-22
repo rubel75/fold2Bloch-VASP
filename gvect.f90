@@ -33,9 +33,9 @@ INTEGER :: j, ig1, ig2, ig3, ig1p, ig2p, ig3p ! counters
 ! AUTOA=0.529177249_q,RYTOEV=13.605826_q
 ! thus HSQDTM = 13.605826*0.529177249*0.529177249 = 0.262465822502110
 
-!REAL(kind=8), PARAMETER :: c=0.262465831 ! original from waveTrans, but there was a case when it did not work
+REAL(kind=8), PARAMETER :: c=0.262465831 ! original from waveTrans, but there was a case when it did not work
 !REAL(kind=8), PARAMETER :: c=0.262465822502110 ! according to constant.inc, but there was a case when it did not work
-REAL(kind=8), PARAMETER :: c=0.26246585 ! that works error free so far...
+!REAL(kind=8), PARAMETER :: c=0.26246585 ! that works error free so far...
 
 ncnt=0
 do ig3=0,2*nb3max
