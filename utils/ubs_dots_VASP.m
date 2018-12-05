@@ -11,7 +11,7 @@ KPATH = [0 0 0;...
          1/2 1/2 0]; % k-point path
 FOLDS = [4 4 4]; % multiplicity in the corresponding directions used when constructing the super-cell
 KLABEL = {'G'; 'R'; 'S'};
-finpt = '2018-09-22.MAPbI3-tetrag-300K-MD-t2400ps_kpath-G-R-S-Ef+1.325692_VASP.f2b'; % input file name
+finpt = 'WAVECAR_spin1.f2b'; % input file name
 Ef = 1.325692; % Fermi energy (Ry)
 ERANGE = [Ef-1 Ef+2]; % energy range for plot (eV)
 pwr = 1/1; % power for result plotting
