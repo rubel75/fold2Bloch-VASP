@@ -25,7 +25,7 @@ set ytics tc rgb "black"
 set cbtics tc rgb "black"
 set tics front
 set label 1 "GaP-zb" at graph 0.05,0.95 front textcolor "white"
-plot "GaP-zb-supecell-optimized.bin" binary matrix with image title "",\
+plot "WAVECAR_spin1.f2b.bin" binary matrix with image title "",\
      0 title "" lc "white" lw 2 lt 2 dt 2
 
 # PLOT 2
