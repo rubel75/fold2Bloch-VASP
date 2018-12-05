@@ -1,6 +1,6 @@
 function ubs_dots
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Plot undolded band structure
+% Plot undolded band structure with matlab using boubles
 % 
 % (c) Oleg Rubel, modified Oct 25, 2017
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
