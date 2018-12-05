@@ -6,14 +6,14 @@ function ubs_dots
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %% Init. parameters
-KPATH = [1/2 0 0;...
-         0 0 0; ...
+KPATH = [0 0 0;...
+         1/2 1/2 1/2; ...
          1/2 1/2 0]; % k-point path
-FOLDS = [1 2 3]; % multiplicity in the corresponding directions used when constructing the super-cell
-KLABEL = {'L'; 'G'; 'X'};
-finpt = 'WAVECAR_spinor1.f2b'; % input file name
-Ef = 5.849894; % Fermi energy (Ry)
-ERANGE = [Ef-6 Ef+8]; % energy range for plot (eV)
+FOLDS = [4 4 4]; % multiplicity in the corresponding directions used when constructing the super-cell
+KLABEL = {'G'; 'R'; 'S'};
+finpt = '2018-09-22.MAPbI3-tetrag-300K-MD-t2400ps_kpath-G-R-S-Ef+1.325692_VASP.f2b'; % input file name
+Ef = 1.325692; % Fermi energy (Ry)
+ERANGE = [Ef-1 Ef+2]; % energy range for plot (eV)
 pwr = 1/1; % power for result plotting
          % 1 - linear scale, 1/2 - sqrt, etc.
          % 0 - folded bands (needs wth = 0)
@@ -30,9 +30,9 @@ clrmp = jet;    % flipud(gray)
                 % flipud(bone)
                 % flipud(jet)
                 % jet
-G = [ 1.636118     -0.9446132     -0.6679425;    
-      0.0000000E+00  0.9446141     -0.3339715;    
-      0.0000000E+00  0.0000000E+00  0.6679430 ];  % Reciprocal latt. vectors
+G = [0.039913469  0.000000000  0.000000000
+0.000000000  0.039913457  0.000000000
+0.000000000  0.000000000  0.039450845];    % Reciprocal latt. vect. from *.outputkgen
 
 
 %% INITIALIZATION
