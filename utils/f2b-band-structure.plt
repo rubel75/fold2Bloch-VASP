@@ -1,3 +1,6 @@
+# Gnuplot script for plotting the band structure as bitmap
+# You need to generate *.bin file with ubs_bmp_VASP.m prior to plotting
+
 #set terminal postscript eps color enhanced font "Whitney-Book,16" size 20cm,12.0cm
 set terminal postscript eps color enhanced font "Helvetica,16" size 20cm,12cm
 
