@@ -45,6 +45,9 @@ for i=1:size(kpath,1)-1
         kpr(j,:) = kpr(j-1,:) + dk;
     end
 end
+kpr=round(kpr*1e14)/1e14; % round to 14 decimal points
+kpr=unique(kpr,'rows','stable'); % eliminate duplicates
+npt=size(kpr,1); % recalculate number of k-points
 
 ksc = zeros(size(kpr)); % allocate k-list for supercell
 for i=1:npt
