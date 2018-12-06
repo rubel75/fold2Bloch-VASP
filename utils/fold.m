@@ -1,12 +1,10 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%
 % This Matlab script is designed to fold a k-path into the BZ of 
 % a supercell and produce KPOINTS file for VASP. The wavefunctions 
 % generated with VASP can be unfolded back to a desired k-path set 
 % below.
 %
-% (c) Oleg Rubel, modified Feb 28, 2018
-%
+% (c) Oleg Rubel, modified Dec 06, 2018
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clear all;
@@ -54,13 +52,18 @@ for i=1:npt
     ksc(i,:) = kpr(i,:).*folds;
 end
 
-% bring k-points coordinates to the range [-0.5, 0.5)
+% bring k-points coordinates to the range [-0.5, 0.5]
 for i=1:npt
     for j=1:3
         a = ksc(i,j);
-        b = a+1/2;
-        c = floor(b);
-        ksc(i,j) = ksc(i,j) - c;
+        if a < 0
+          b = a+1/2;
+          c = floor(b);
+        else
+          b = a-1/2;
+          c = ceil(b);
+        end
+        ksc(i,j) = a - c;
     end
 end
 
