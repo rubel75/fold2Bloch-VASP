@@ -44,9 +44,12 @@ Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-sp
     ...
 
 ### Plotting results
-The Matlab code `utils/ubs_dots_VASP.m` is designed to assist with plotting the band structure and the Bloch weights. Please refer to its input section for description of user input variables. Below is a sample of the Matlab plot for the unfolded band structure of a dilute GaP:N alloy.
+The Matlab code `utils/ubs_dots_VASP.m` or the octave code `utils/ubs_bmp_VASP.m` are designed to assist with plotting the band structure and the Bloch weights. Please refer to its input section for description of user input variables. Each plotting tool has its own pros/cons. Below is a sample of the Matlab plot for the unfolded band structure of a dilute GaP:N alloy followed by a plot of a different style (generated using Octave `utils/ubs_bmp_VASP.m` and gnuplot `utils/f2b-band-structure.plt`).
 
 ![alt text](https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png)
+
+![alt text](https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png)
+
 
 ### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
