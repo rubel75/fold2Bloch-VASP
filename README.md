@@ -50,7 +50,7 @@ The Matlab code `utils/ubs_dots_VASP.m` or the octave code `utils/ubs_bmp_VASP.m
 
 ![figure perovskite](https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/perovskite.png | width=100)
 
-<img src="https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png" width="800">
+<img src="https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png" width="600">
 
 <img src="https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/perovskite.png" width="400">
 
