@@ -17,7 +17,7 @@ The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply 
 `$ cd fold2Bloch-VASP; make`
 
 ### Execution
-First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The folliwing Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed defaul value to get a resonable description of higher energy states.
+First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The folliwing Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed default value to get a resonable description of higher energy states.
 
 Once WAVECAR is ready, execute
 
