@@ -1,10 +1,11 @@
+function fold
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % This Matlab script is designed to fold a k-path into the BZ of 
-% a supercell and produce KPOINTS file for VASP. The wavefunctions 
-% generated with VASP can be unfolded back to a desired k-path set 
-% below.
+% a supercell and produce KPOINTS file for VASP and case.klist_band file 
+% for Wien2k. The wavefunctions generated with VASP can be unfolded back 
+% to a desired k-path set below.
 %
-% (c) Oleg Rubel, modified Dec 06, 2018
+% (c) Oleg Rubel, modified Oct 02, 2019
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clear all;
@@ -73,7 +74,7 @@ ksc=unique(ksc,'rows','stable'); % eliminate duplicates
 npt=size(ksc,1); % recalculate number of k-points
 
 
-%% Write KPOINTS file
+%% Write VASP KPOINTS file
 
 fileID = fopen('KPOINTS','w');
 fprintf(fileID,'%34s\n','k-mesh for unfolding the band structure');
@@ -87,3 +88,38 @@ for i=1:npt
     end
 end
 fclose(fileID);
+
+
+%% Write Wien2k case.klist_band file
+
+fileID = fopen('case.klist_band','w');
+for i=1:npt
+    % convert real coordinate of k points the ratio of integers
+    ndrat = real2rat(ksc(i,:), 9); % 9 is related to the format output i9
+    format = '%10i %9i %9i %9i %9i %4.2f';
+    if (i ~= npt) % print with return at the end "\n", except for the last line
+        format = [format, '\n'];
+    end
+    fprintf(fileID, format, i, ndrat, 1.0);
+end
+fclose(fileID);
+
+% -------------------------------------------------------------------------
+function out = real2rat(V, outsizemax)
+% transform vector V(1:3) into the ratio of integers nout(1:3)/dout
+%
+[n,d] = rat(V); % bring rational numbers to the form n/d
+dout = lcm(d(1),d(2)); % determine a common multiplier
+dout = lcm(d(3),dout);
+nout = n*dout./d; % scale by the common multiplier
+out = [nout, dout]; % append common divisor
+outsize = max(ceil(log10(abs(out))),1); % size of the output integer
+% check if the integers are compatible with the output format
+if any(outsize > outsizemax) 
+    disp('out ='); disp(outsize);
+    disp('outsize ='); disp(outsize);
+    disp('outsizemax ='); disp(outsizemax);
+    msg = 'Integer size exceeds the output format.';
+    error(msg);
+end
+
