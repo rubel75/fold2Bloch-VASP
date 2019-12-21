@@ -2,10 +2,10 @@ function fold
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % This Matlab script is designed to fold a k-path into the BZ of 
 % a supercell and produce KPOINTS file for VASP and case.klist_band file 
-% for Wien2k. The wavefunctions generated with VASP can be unfolded back 
+% for WIEN2k. The wavefunctions generated with VASP can be unfolded back 
 % to a desired k-path set below.
 %
-% (c) Oleg Rubel, modified Oct 02, 2019
+% (c) Oleg Rubel, modified Dec 20, 2019
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clear all;
@@ -90,7 +90,7 @@ end
 fclose(fileID);
 
 
-%% Write Wien2k case.klist_band file
+%% Write WIEN2k case.klist_band file
 
 fileID = fopen('case.klist_band','w');
 for i=1:npt
@@ -102,6 +102,7 @@ for i=1:npt
     end
     fprintf(fileID, format, i, ndrat, 1.0);
 end
+fprintf(fileID, '%s', 'END'); % append the k-list file
 fclose(fileID);
 
 % -------------------------------------------------------------------------
