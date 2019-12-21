@@ -96,10 +96,7 @@ fileID = fopen('case.klist_band','w');
 for i=1:npt
     % convert real coordinate of k points the ratio of integers
     ndrat = real2rat(ksc(i,:), 9); % 9 is related to the format output i9
-    format = '%10i %9i %9i %9i %9i %4.2f';
-    if (i ~= npt) % print with return at the end "\n", except for the last line
-        format = [format, '\n'];
-    end
+    format = '%10i %9i %9i %9i %9i %4.2f\n';
     fprintf(fileID, format, i, ndrat, 1.0);
 end
 fprintf(fileID, '%s', 'END'); % append the k-list file
