@@ -3,7 +3,7 @@
 ! that are used to plot an effective band structure of supercells.
 !
 ! Execution:
-!   $ fild2Bloch WAVECAR FX:FY:FZ [-ncl]
+!   $ fold2Bloch WAVECAR FX:FY:FZ [-ncl]
 !
 ! Options:
 !   WAVECAR -- name of the input VASP wavefunction file
