@@ -54,7 +54,7 @@ The Matlab code `utils/ubs_dots_VASP.m` or the octave code `utils/ubs_bmp_VASP.m
 ### References
 If you find the results usefull and publishable, we will appreciate citing the following papers:
 * O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
-* V. Popescu and A. Zunger "Effective Band Structure of Random Alloys", [Phys. Rev. Lett. **104**, 236403 (2010)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.104.236403).
+* L.-W. Wang, L. Bellaiche, S.-H. Wei, and A. Zunger "Majority representation of alloy electronic states", [Phys. Rev. Lett. **80**, 4725 (1998)](https://doi.org/10.1103/PhysRevLett.80.4725).
 
 ### License
 
