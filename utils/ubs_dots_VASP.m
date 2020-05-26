@@ -2,7 +2,7 @@ function ubs_dots
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Plot undolded band structure with matlab using boubles
 % 
-% (c) Oleg Rubel, modified Oct 25, 2017
+% (c) Oleg Rubel, modified May 26, 2020
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %% Init. parameters
@@ -59,7 +59,21 @@ for ikp = 1 : size(KPATH,1)-1
     XTICKS = [XTICKS; XTICKS(ikp)+dk];
     for j = 1 : length(EIG)
         if EIG(j) > ERANGE(1) && EIG(j) < ERANGE(2) && W(j) >= wth
-            dist = dp2l( KEIG(j,:) , KPATH(ikp,:) , KPATH(ikp+1,:) );
+            dist = Inf; % initialize distance to a path
+            for ikx = -1:1 % include periodic images of the BZ
+                for iky = -1:1
+                    for ikz = -1:1
+                        KPERIOD = [ikx iky ikz]; % periodic shift
+                        % transform to Cartezian coords
+                        KPERIOD = coordTransform(KPERIOD,G);
+                        % evaluate distance to the path
+                        dist2 = dp2l( KEIG(j,:) + KPERIOD , ...
+                            KPATH(ikp,:) , KPATH(ikp+1,:) );
+                        % select smallest distance
+                        dist = min(dist,dist2);
+                    end
+                end
+            end
             if dist < eps % k-point is on the path
                 A = KPATH(ikp,:) - KEIG(j,:);
                 x = dot(A,B)/dk;
