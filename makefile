@@ -39,4 +39,4 @@ clean:
 	rm -f *.o *.mod *.MOD
 
 veryclean: clean
-	rm -f *~ $(PROGRAMS)
+	rm -f *~ $(PROGRAM)
