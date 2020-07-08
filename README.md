@@ -17,7 +17,7 @@ The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply 
 `$ cd fold2Bloch-VASP; make`
 
 ### Execution
-First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The folliwing Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed default value to get a resonable description of higher energy states.
+First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The following Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed default value to get a resonable description of higher energy states.
 
 Once WAVECAR is ready, execute
 
@@ -27,12 +27,12 @@ Options:
 
   `WAVECAR` -- name of the input VASP wavefunction file
 
-  `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell. Note: the supercell should be constracted on the basis of the primitive cell (not conventional).
+  `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell. Note: the supercell should be constructed on the basis of the primitive cell (not conventional).
 
   `-ncl` -- optional switch that needs to be activated when the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (default assumption is that WAVECAR comes from vasp_std or vasp_gam).
 
 ### Output
-Output is writen to `WAVECAR_*.f2b` file(s). There is one output file for non-spin-polarized calculation and two files for the spin-polarized or spinor (vasp_ncl) calculations. Below is a sample of an output file.
+Output is written to `WAVECAR_*.f2b` file(s). There is one output file for non-spin-polarized calculation and two files for the spin-polarized or spinor (vasp_ncl) calculations. Below is a sample of an output file.
 
     New K-values (x, y, z)       Eigenvalue (eV)  Weight
     0.000000   0.000000   0.000000 -22.019998   1.000000
@@ -52,18 +52,6 @@ The Matlab code `utils/ubs_dots_VASP.m` or the octave code `utils/ubs_bmp_VASP.m
 
 
 ### References
-If you find the results usefull and publishable, we will appreciate citing the following papers:
+If you find the results useful and publishable, we will appreciate citing the following papers:
 * O. Rubel, A. Bokhanchuk, S. J. Ahmed, and E. Assmann "Unfolding the band structure of disordered solids: from bound states to high-mobility Kane fermions", [Phys. Rev. B **90**, 115202 (2014)](http://olegrubel.mcmaster.ca/publications/2014/Rubel_PRB_90_115202.pdf).
 * L.-W. Wang, L. Bellaiche, S.-H. Wei, and A. Zunger "Majority representation of alloy electronic states", [Phys. Rev. Lett. **80**, 4725 (1998)](https://doi.org/10.1103/PhysRevLett.80.4725).
-
-### License
-
-fold2Bloch is free  software: you can redistribute  it and/or modify
-it under the  terms of the GNU General Public  License as published by
-the Free Software Foundation, either version  3 of the License, or (at
-your option) any later version.
-
-fold2Bloch is  distributed in the hope  that it will be useful, but
-WITHOUT   ANY  WARRANTY;   without  even   the  implied   warranty  of
-MERCHANTABILITY  or FITNESS  FOR A  PARTICULAR PURPOSE.   See  the GNU
-General Public License for more details.
