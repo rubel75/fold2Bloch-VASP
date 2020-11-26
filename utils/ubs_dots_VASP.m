@@ -33,6 +33,7 @@ clrmp = jet;    % flipud(gray)
 G = [0.039913469  0.000000000  0.000000000
 0.000000000  0.039913457  0.000000000
 0.000000000  0.000000000  0.039450845];    % Reciprocal latt. vect. from *.outputkgen
+roundOffErrK = 0.000001; % this is the round off error 1/3 = 0.333333 + err
 
 
 %% INITIALIZATION
@@ -45,13 +46,16 @@ G = [0.039913469  0.000000000  0.000000000
 L = [];
 ENE = [];
 WGHT = [];
-%G = G'; % transpose G matrix (need for Wien2k)
+G = G'; % transpose G matrix (need for Wien2k)
 for i=1 : 3
     G(i,:)=G(i,:)*FOLDS(i); % rescale reciprocal lattice vectors 
 end                         % from supercell to primitive cell
 dl = 0; % cumulative length of the path
 KPATH = coordTransform(KPATH,G);
 KEIG = coordTransform(KEIG,G);
+epsk = [roundOffErrK roundOffErrK roundOffErrK]; % k rounding error
+epsk = coordTransform(epsk,G); % transform to Cart. coords
+epsk = sqrt(dot(epsk,epsk)); % get magnitude of the vector
 XTICKS = [0];
 for ikp = 1 : size(KPATH,1)-1
     B = KPATH(ikp,:) - KPATH(ikp+1,:);
@@ -74,10 +78,10 @@ for ikp = 1 : size(KPATH,1)-1
                     end
                 end
             end
-            if dist < eps % k-point is on the path
+            if dist < epsk % k-point is on the path
                 A = KPATH(ikp,:) - KEIG(j,:);
                 x = dot(A,B)/dk;
-                if x >= 0  &&  x <= dk+eps % k-point is within the path range
+                if x >= 0  &&  x <= dk+epsk % k-point is within the path range
                     L = [L; x+dl]; % append k-point coordinate along the path
                     ENE = [ENE; EIG(j)]; % append energy list
                     WGHT = [WGHT; W(j)];
@@ -145,7 +149,7 @@ function W = coordTransform(V,G)
 W = zeros(size(V));
 for i = 1:size(V,1)
     W(i,:) = G(1,:)*V(i,1) + G(2,:)*V(i,2) + G(3,:)*V(i,3);
-end;
+end
 % -------------------------------------------------------------------------
 function WRESCL = rescale(W,pwr)
 % rescale weights using a power functio W^pwr
@@ -166,7 +170,7 @@ denomabs = sqrt(dot(denom,denom));
 if denomabs < eps
     display(X1); display(X2);
     error('X1 = X2');
-end;
+end
 numer = cross( X0-X1 , X0-X2 );
 numerabs = sqrt(dot(numer,numer));
 RES = numerabs/denomabs;
