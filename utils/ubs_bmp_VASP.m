@@ -30,7 +30,8 @@ sK = 0.0025; % smearing factor in k-space
 sE = 0.025; % smearing factor in energy
 G = [0.259148502 -0.149619435 -0.104836011
 0.000000000  0.299238904 -0.104836011
-0.000000000  0.000000000  0.052418005];    % Reciprocal latt. vect. from *.outputkgen
+0.000000000  0.000000000  0.052418005];    % Reciprocal latt. vect. from OUTCAR
+roundOffErrK = 0.000001; % this is the round off error 1/3 = 0.333333 + err
 
 %% INITIALIZATION
 [KEIG, EIG, W] = readinput(finpt); % read input data from file
@@ -49,6 +50,9 @@ end                         % from supercell to primitive cell
 dl = 0; % cumulative length of the path
 KPATH = coordTransform(KPATH,G);
 KEIG = coordTransform(KEIG,G);
+epsk = [roundOffErrK roundOffErrK roundOffErrK]; % k rounding error
+epsk = coordTransform(epsk,G); % transform to Cart. coords
+epsk = sqrt(dot(epsk,epsk)); % get magnitude of the vector
 XTICKS = [0];
 for ikp = 1 : size(KPATH,1)-1
     B = KPATH(ikp,:) - KPATH(ikp+1,:);
@@ -71,10 +75,10 @@ for ikp = 1 : size(KPATH,1)-1
                     end
                 end
             end
-            if dist < eps % k-point is on the path
+            if dist < epsk % k-point is on the path
                 A = KPATH(ikp,:) - KEIG(j,:);
                 x = dot(A,B)/dk;
-                if x >= 0  &&  x <= dk+eps % k-point is within the path range
+                if x >= 0  &&  x <= dk+epsk % k-point is within the path range
                     L = [L; x+dl]; % append k-point coordinate along the path
                     ENE = [ENE; EIG(j)]; % append energy list
                     WGHT = [WGHT; W(j)];
