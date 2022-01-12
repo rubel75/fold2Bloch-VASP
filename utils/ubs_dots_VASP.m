@@ -72,7 +72,7 @@ for ikp = 1 : size(KPATH,1)-1
                         KPERIOD = coordTransform(KPERIOD,G);
                         % evaluate distance to the path
                         dist2 = dp2l( KEIG(j,:) + KPERIOD , ...
-                            KPATH(ikp,:) , KPATH(ikp+1,:) );
+                            KPATH(ikp,:) , KPATH(ikp+1,:) , epsk );
                         % select smallest distance
                         dist = min(dist,dist2);
                     end
@@ -163,7 +163,7 @@ KEIG = DATA(:,1:3);
 EIG = DATA(:,4);
 W = DATA(:,5);
 % -------------------------------------------------------------------------
-function RES = dp2l(X0,X1,X2) % distance from point {X0} to line {X1}-{X2}
+function RES = dp2l(X0,X1,X2,epsk) % distance from point {X0} to line {X1}-{X2}
 % see http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
 denom = X2 - X1;
 denomabs = sqrt(dot(denom,denom));
@@ -174,4 +174,9 @@ end
 numer = cross( X0-X1 , X0-X2 );
 numerabs = sqrt(dot(numer,numer));
 RES = numerabs/denomabs;
+if RES <= epsk
+    if norm(X0-X1) + norm(X0-X2) - norm(X1-X2) >  2*epsk
+        RES = Inf; % exclude collinear points that are not on the segment
+    end
+end
 % -------------------------------------------------------------------------
