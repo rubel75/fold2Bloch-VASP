@@ -1,0 +1,6 @@
+# Module files
+*.mod
+*.o
+
+# Binary file(s)
+fold2Bloch
