@@ -113,6 +113,9 @@ function cwaitbar(comment,val,maxval)
         frmt = strcat(comment, donebar, todobar, " %d/%d", '\n');
         str=sprintf(frmt,val,maxval);
         fprintf(str);
+        if ntodo == 0 % last run
+            firstrun = true; % reset the flag for the next bar
+        endif
     endif
 endfunction
 % -------------------------------------------------------------------------
