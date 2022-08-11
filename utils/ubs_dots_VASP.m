@@ -77,7 +77,7 @@ for ikp = 1 : size(KPATH,1)-1
                         % select smallest distance
                         dist = min(dist,dist2);
                         if dist < epsk % k-point is on the path
-                            A = KPATH(ikp,:) - KEIG(j,:);
+                            A = KPATH(ikp,:) - KEIG(j,:) - KPERIOD;
                             x = dot(A,B)/dk;
                             if x >= 0  &&  x <= dk+epsk % k-point is within the path range
                                 L = [L; x+dl]; % append k-point coordinate along the path
