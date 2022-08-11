@@ -64,6 +64,7 @@ for ikp = 1 : size(KPATH,1)-1
     for j = 1 : length(EIG)
         if EIG(j) > ERANGE(1) && EIG(j) < ERANGE(2) && W(j) >= wth
             dist = Inf; % initialize distance to a path
+            quit = false;
             for ikx = -1:1 % include periodic images of the BZ
                 for iky = -1:1
                     for ikz = -1:1
@@ -75,18 +76,26 @@ for ikp = 1 : size(KPATH,1)-1
                             KPATH(ikp,:) , KPATH(ikp+1,:) , epsk );
                         % select smallest distance
                         dist = min(dist,dist2);
+                        if dist < epsk % k-point is on the path
+                            A = KPATH(ikp,:) - KEIG(j,:);
+                            x = dot(A,B)/dk;
+                            if x >= 0  &&  x <= dk+epsk % k-point is within the path range
+                                L = [L; x+dl]; % append k-point coordinate along the path
+                                ENE = [ENE; EIG(j)]; % append energy list
+                                WGHT = [WGHT; W(j)];
+                            end
+                            quit = true;
+                            break; % exit ikz loop
+                        end
+                    end % ikz loop
+                    if quit
+                        break; % exit iky loop
                     end
+                end % iky loop
+                if quit
+                    break; % exit ikx loop
                 end
-            end
-            if dist < epsk % k-point is on the path
-                A = KPATH(ikp,:) - KEIG(j,:);
-                x = dot(A,B)/dk;
-                if x >= 0  &&  x <= dk+epsk % k-point is within the path range
-                    L = [L; x+dl]; % append k-point coordinate along the path
-                    ENE = [ENE; EIG(j)]; % append energy list
-                    WGHT = [WGHT; W(j)];
-                end
-            end
+            end % ikx loop
         end
     end
     dl = dl + dk;
