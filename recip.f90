@@ -64,30 +64,30 @@ phi12=acos((b1(1)*b2(1)+b1(2)*b2(2)+b1(3)*b2(3))/(b1mag*b2mag))
 call vcross(vtmp,b1,b2)
 vmag=dsqrt(vtmp(1)**2+vtmp(2)**2+vtmp(3)**2)
 sinphi123=(b3(1)*vtmp(1)+b3(2)*vtmp(2)+b3(3)*vtmp(3))/(vmag*b3mag)
-nb1maxA=(dsqrt(ecut*c)/(b1mag*abs(sin(phi12))))+1
-nb2maxA=(dsqrt(ecut*c)/(b2mag*abs(sin(phi12))))+1
-nb3maxA=(dsqrt(ecut*c)/(b3mag*abs(sinphi123)))+1
-npmaxA=nint(4.*pi*nb1maxA*nb2maxA*nb3maxA/3.)
+nb1maxA=NINT(dsqrt(ecut*c)/(b1mag*abs(sin(phi12))))+1
+nb2maxA=NINT(dsqrt(ecut*c)/(b2mag*abs(sin(phi12))))+1
+nb3maxA=NINT(dsqrt(ecut*c)/(b3mag*abs(sinphi123)))+1
+npmaxA=NINT(4.*pi*nb1maxA*nb2maxA*nb3maxA/3.)
       
 phi13=acos((b1(1)*b3(1)+b1(2)*b3(2)+b1(3)*b3(3))/(b1mag*b3mag))
 call vcross(vtmp,b1,b3)
 vmag=dsqrt(vtmp(1)**2+vtmp(2)**2+vtmp(3)**2)
 sinphi123=(b2(1)*vtmp(1)+b2(2)*vtmp(2)+b2(3)*vtmp(3))/(vmag*b2mag)
 phi123=abs(asin(sinphi123))
-nb1maxB=(dsqrt(ecut*c)/(b1mag*abs(sin(phi13))))+1
-nb2maxB=(dsqrt(ecut*c)/(b2mag*abs(sinphi123)))+1
-nb3maxB=(dsqrt(ecut*c)/(b3mag*abs(sin(phi13))))+1
-npmaxB=nint(4.*pi*nb1maxB*nb2maxB*nb3maxB/3.)
+nb1maxB=NINT(dsqrt(ecut*c)/(b1mag*abs(sin(phi13))))+1
+nb2maxB=NINT(dsqrt(ecut*c)/(b2mag*abs(sinphi123)))+1
+nb3maxB=NINT(dsqrt(ecut*c)/(b3mag*abs(sin(phi13))))+1
+npmaxB=NINT(4.*pi*nb1maxB*nb2maxB*nb3maxB/3.)
       
 phi23=acos((b2(1)*b3(1)+b2(2)*b3(2)+b2(3)*b3(3))/(b2mag*b3mag))
 call vcross(vtmp,b2,b3)
 vmag=dsqrt(vtmp(1)**2+vtmp(2)**2+vtmp(3)**2)
 sinphi123=(b1(1)*vtmp(1)+b1(2)*vtmp(2)+b1(3)*vtmp(3))/(vmag*b1mag)
 phi123=abs(asin(sinphi123))
-nb1maxC=(dsqrt(ecut*c)/(b1mag*abs(sinphi123)))+1
-nb2maxC=(dsqrt(ecut*c)/(b2mag*abs(sin(phi23))))+1
-nb3maxC=(dsqrt(ecut*c)/(b3mag*abs(sin(phi23))))+1 
-npmaxC=nint(4.*pi*nb1maxC*nb2maxC*nb3maxC/3.)
+nb1maxC=NINT(dsqrt(ecut*c)/(b1mag*abs(sinphi123)))+1
+nb2maxC=NINT(dsqrt(ecut*c)/(b2mag*abs(sin(phi23))))+1
+nb3maxC=NINT(dsqrt(ecut*c)/(b3mag*abs(sin(phi23))))+1 
+npmaxC=NINT(4.*pi*nb1maxC*nb2maxC*nb3maxC/3.)
 
 nb1max=max0(nb1maxA,nb1maxB,nb1maxC)
 nb2max=max0(nb2maxA,nb2maxB,nb2maxC)

@@ -1,5 +1,5 @@
 # Gnuplot script for plotting the band structure as bitmap
-# You need to generate *.bin file with ubs_bmp_VASP.m prior to plotting
+# You need to generate *.bin file with ubs_bmp.m prior to plotting
 
 #set terminal postscript eps color enhanced font "Whitney-Book,16" size 20cm,12.0cm
 set terminal postscript eps color enhanced font "Helvetica,16" size 20cm,12cm
@@ -18,17 +18,17 @@ set ylabel "Energy (eV)"
 set format y "%.1f" # 1 digit after period
 set border linewidth 1.0
 #set datafile separator "," # for *.csv file
-set yrange [-2.0:3.0]
-set xrange [0:0.34432]
-set cbrange [0:4]
-set xtics ("L" 0, "G" 0.15824, "X" 0.34432)
+set yrange [-2.0:0.5]
+set xrange [0:1.43966]
+#set cbrange [0:4]
+set xtics ("G" 0, "X" 0.42118, "S" 0.84236, "G" 1.43966)
 set border lw 2 lc rgb "white"
 set xtics tc rgb "black"
 set ytics tc rgb "black"
 set cbtics tc rgb "black"
 set tics front
-set label 1 "GaP-zb" at graph 0.05,0.95 front textcolor "white"
-plot "WAVECAR_spin1.f2b.bin" binary matrix with image title "",\
+set label 1 "SrIrO3 (2x2x2 -> 1x1x1)" at graph 0.05,0.95 front textcolor "white"
+plot "case.f2b.bin" binary matrix with image title "",\
      0 title "" lc "white" lw 2 lt 2 dt 2
 
 # PLOT 2

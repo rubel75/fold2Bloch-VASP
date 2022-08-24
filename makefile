@@ -7,8 +7,15 @@
 
 # Edit to adjust for Fortran compiler and flags. Keep '-assume byterecl' !!!
 FC = ifort
-FCFLAGS = -assume byterecl #-g -traceback -check all -debug all
-FLFLAGS = -assume byterecl #-g -traceback -check all -debug all
+FLFLAGS = # none
+FCFLAGS = -free -assume byterecl # performance
+#FCFLAGS = -free -assume byterecl -g -traceback -check all -debug all # debug
+
+# gfortran compiler
+#FC = gfortran
+#FLFLAGS = # none
+#FCFLAGS = -ffree-form # performance
+#FCFLAGS = -ffree-form -g -fbacktrace -Wconversion -fcheck=all # debug
 
 # ~~~ Do not edit after that line ~~~
 
@@ -22,13 +29,13 @@ SRCS = $(patsubst %.f90, %.o, $(wildcard *.f90)) \
 all: $(PROGRAM)
 
 $(PROGRAM): $(SRCS)
-	$(FC) $(FCFLAGS) -o $@ $^
+	$(FC) $(FLFLAGS) -o $@ $^
 
 %.o: %.f90
-	$(FC) $(FLFLAGS) -c $<
+	$(FC) $(FCFLAGS) -c $<
 
 #%.mod: %.h
-#	$(FC) $(FLFLAGS) -o $@ $<
+#	$(FC) $(FCFLAGS) -o $@ $<
 
 
 

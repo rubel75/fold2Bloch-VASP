@@ -5,72 +5,98 @@
 !!! into appropriate groups.
 !!!
 !!! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-SUBROUTINE bloch_w(folds, nplane, igall, & ! <- args in 
-                coeff, nnewk, & ! <- args in 
-                w) ! -> args out
-IMPLICIT NONE
-INTEGER, INTENT(in) :: folds(3), nplane
-INTEGER, INTENT(in) :: igall(3,nplane)
-COMPLEX*8, INTENT(in) :: coeff(nplane)
-INTEGER, INTENT(in) :: nnewk ! number of new k-points after unfolding
-REAL(kind=8), INTENT(out) ::  w(nnewk) ! Bloch spectral weights
-COMPLEX*8 :: TGroupC(folds(1),folds(2),folds(3),nplane)
-REAL(kind=8) :: Sums(nnewk)
-INTEGER :: counter(folds(1),folds(2),folds(3))
-REAL(kind=8) :: sumtot
-INTEGER :: remainder_x, remainder_y, remainder_z, j, k, l, p, el
-INTEGER :: FX, FY, FZ
+SUBROUTINE bloch_w(ks, kp, vscale, Dp2s, toldk, G, &! <-- args in
+    pwcoeffz, NV, &! <-- args in
+    w) ! --> args out
+implicit none
+! external vars
+integer, intent(in) :: &
+    vscale, &! primit. -> superc. volume scale (real space)
+    Dp2s(3,3), &! primit. -> superc. transform matrix (real space)
+    NV, &! length of PW coefficient vector
+    G(3,NV) ! matrix of PW lattice vectors
+REAL(kind=8), intent(in) :: &
+    ks(3), &! k point in supercell
+    kp(3,vscale), &! ks point unfolded to primitive BZ
+    toldk ! tolerance for finding unique k points
+COMPLEX*8, intent(in) :: &
+    pwcoeffz(NV) ! plane wave coefficients r/z (real/complex)
+REAL(kind=8), intent(out) :: &
+    w(vscale) ! weights after unfolding (0-1)
+! internal vars
+REAL(kind=8) :: &
+    Ds2p(3,3), &! matrix to transf. direct supercell to primitive vectors
+    ksG(3), &! ks + G
+    kptmpi(3) ! intermediate (non unique new k point)
+integer :: &
+    i, j, &! counter
+    countw(vscale) ! count entries into weight bins
+logical :: &
+    matchfound ! used to identify when a k point match found in a group 'kp'
 
-FX = folds(1); FY = folds(2); FZ = folds(3)
- 
-!! Initiates the counter and TGroupC elements at 0
+!! construct Ds2p matrix
+! Ds2p = inv(Dp2s)
+    Ds2p(1,1) = (  Dp2s(2,2)*Dp2s(3,3) - Dp2s(2,3)*Dp2s(3,2) ) / REAL(vscale,8)
+    Ds2p(2,1) = (- Dp2s(2,1)*Dp2s(3,3) + Dp2s(2,3)*Dp2s(3,1) ) / REAL(vscale,8)
+    Ds2p(3,1) = (  Dp2s(2,1)*Dp2s(3,2) - Dp2s(2,2)*Dp2s(3,1) ) / REAL(vscale,8)
+    Ds2p(1,2) = (- Dp2s(1,2)*Dp2s(3,3) + Dp2s(1,3)*Dp2s(3,2) ) / REAL(vscale,8)
+    Ds2p(2,2) = (  Dp2s(1,1)*Dp2s(3,3) - Dp2s(1,3)*Dp2s(3,1) ) / REAL(vscale,8)
+    Ds2p(3,2) = (- Dp2s(1,1)*Dp2s(3,2) + Dp2s(1,2)*Dp2s(3,1) ) / REAL(vscale,8)
+    Ds2p(1,3) = (  Dp2s(1,2)*Dp2s(2,3) - Dp2s(1,3)*Dp2s(2,2) ) / REAL(vscale,8)
+    Ds2p(2,3) = (- Dp2s(1,1)*Dp2s(2,3) + Dp2s(1,3)*Dp2s(2,1) ) / REAL(vscale,8)
+    Ds2p(3,3) = (  Dp2s(1,1)*Dp2s(2,2) - Dp2s(1,2)*Dp2s(2,1) ) / REAL(vscale,8)
 
-DO j=1,FX
-    DO k=1,FY
-        DO l=1,FZ
-            counter(j,k,l)=0
-            DO p=1,nplane
-                TGroupC(j,k,l,p)=0.0
-            ENDDO
-        ENDDO
-    ENDDO
-ENDDO
+! initialize weights and its counter
+w = DBLE(0)
+countw = 0
 
-!! Sorts the PW coefficients
-
-do j=1, nplane
-    remainder_x=MODULO(igall(1,j), FX)
-    remainder_y=MODULO(igall(2,j), FY)
-    remainder_z=MODULO(igall(3,j), FZ)
-    counter(remainder_x+1, remainder_y+1, remainder_z+1) = &
-        counter(remainder_x+1, remainder_y+1, remainder_z+1)+1
-    TGroupC(remainder_x+1, remainder_y+1, remainder_z+1, &
-        counter(remainder_x+1, remainder_y+1, remainder_z+1))=coeff(j)
-enddo
-
-!! Sums the squares  of all coefficients per group
- 
-el=1
-do j=1, FX
-    do k=1, FY
-        do l=1, FZ
-            if (counter(j, k, l).gt.0) then
-                do p=1, counter(j, k, l)
-                    TGroupC(j, k, l,p)= &
-                        TGroupC(j, k, l,p)*CONJG(TGroupC(j, k, l,p))
-                enddo
-                Sums(el)=SUM(TGroupC(j, k, l,1:counter(j, k, l)))
-                el=el+1
-            else 
-                Sums(el)=0.0
-                el=el+1
-            endif
+! sorts the PW coefficients into bins of weights
+do i=1, NV
+    ksG = ks + (/G(1,i), G(2,i), G(3,i)/)
+    kptmpi = MATMUL(ksG, Ds2p) ! convert supercell -> primitive basis
+    ! bring k points into the range [0,1)
+    do j=1,3
+        kptmpi(j) = MODULO( kptmpi(j), DBLE(1))
+        if (1-kptmpi(j) .lt. toldk) then ! 0.99999 -> 1 -> 0
+            kptmpi(j) = DBLE(0)
+        endif
+    enddo ! j
+    ! compare the kptmpi point with the list 'kp' and find which group 
+    ! it belongs
+    matchfound = .false.
+    do j=1, vscale
+        if ( ALL(ABS(kptmpi- kp(:,j)) < toldk) ) then
+            ! point matched to one on the 'kp' list
+            matchfound = .true.
+            ! store absolute value squared of the PW coefficient in
+            ! appropriate bin 'w'
+            w(j) = w(j) + REAL(pwcoeffz(i)*CONJG(pwcoeffz(i)),8)
+            countw(j) = countw(j) + 1 ! update counter
+            exit ! loop
+        endif
+    enddo ! j (kp)
+    if (.not.matchfound) then
+        write(*,*) 'ERROR in subroutine Sort: unable to match k point (', &
+            kptmpi, ') to a point in the group kp listed below'
+        do j=1, vscale
+            write(*,*) 'kp(', j, ') = ', kp(:,j)
         enddo
-    enddo
+        ERROR STOP 1
+    endif
+enddo ! i (PW)
+
+! check if all bins got weights
+do i=1, vscale
+    if (countw(j) .eq. 0) then
+        write(*,*) 'ERROR in subroutine Sort: unable to populate k point (', &
+            kp(:,i), ') from the group kp listed below. This is unlikely.'
+        do j=1, vscale
+            write(*,*) 'kp(', j, ') = ', kp(:,j)
+        enddo
+        ERROR STOP 1
+    endif
 enddo
-sumtot=SUM(Sums)
-do j=1, nnewk
-    w(j)=Sums(j)/sumtot
-enddo
+
+! return _not_ normalized weights
  
 END SUBROUTINE bloch_w

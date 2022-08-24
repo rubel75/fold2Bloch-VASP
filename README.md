@@ -21,13 +21,17 @@ First, you need to perform the band structure calculation and generate WAVECAR f
 
 Once WAVECAR is ready, execute
 
-`/path/to/fold2Bloch WAVECAR FX:FY:FZ [-ncl]`
+`/path/to/fold2Bloch WAVECAR "P11 P12 P13:P21 P22 P23:P31 P32 P33" [-ncl]`
 
 Options:
 
   `WAVECAR` -- name of the input VASP wavefunction file
 
-  `FX:FY:FZ` -- multiplicity of the primitive cell that was used to construct a supercell. Note: the supercell should be constructed on the basis of the primitive cell (not conventional).
+  `"P11 P12 P13:P21 P22 P23:P31 P32 P33"` -- transformation matrix from primitive lattive verctors `a_p` to supercell lattive verctors `a_s` (same as in [VESTA](https://jp-minerals.org/vesta/en/) or the [Bilbao Crystallographic Server](https://www.cryst.ehu.es/cgi-bin/cryst/programs/nph-doc-trmat)):
+
+  ```
+  a_s(i) = sum_j a_p(j)*P(j,i)      i,j = 1, 2, 3
+  ```
 
   `-ncl` -- optional switch that needs to be activated when the WAVECAR is produced by vasp_ncl code, which implies that the wavefunctions are spinors (default assumption is that WAVECAR comes from vasp_std or vasp_gam).
 
