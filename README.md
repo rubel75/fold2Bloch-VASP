@@ -17,7 +17,7 @@ The `makefile` is set up for Intel Fortran compiler `ifort` (`gfortran` options 
 `$ cd fold2Bloch-VASP; make`
 
 ### Execution
-First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The following Matlab script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed default value to get a resonable description of higher energy states.
+First, you need to perform the band structure calculation and generate WAVECAR file for the k-mesh of interest using standard VASP procedure (see VASP [guidelines](https://cms.mpi.univie.ac.at/wiki/index.php/Si_bandstructure)). (The following MATLAB script `utils/fold.m` is designed to assist with preparing a folded string of k-points that will unfold on a desired k-path.) It is advised to increase the number of empty bands (NBANDS=... in INCAR file) by a factor of 1.2-2 beyond a VASP-proposed default value to get a reasonable description of higher energy states.
 
 Once WAVECAR is ready, execute
 
@@ -27,7 +27,7 @@ Options:
 
   `WAVECAR` -- name of the input VASP wavefunction file
 
-  `"P11 P12 P13:P21 P22 P23:P31 P32 P33"` -- transformation matrix from primitive lattive verctors `a_p` to supercell lattive verctors `a_s` (same as in [VESTA](https://jp-minerals.org/vesta/en/) or the [Bilbao Crystallographic Server](https://www.cryst.ehu.es/cgi-bin/cryst/programs/nph-doc-trmat)):
+  `"P11 P12 P13:P21 P22 P23:P31 P32 P33"` -- transformation matrix from primitive lattice vectors `a_p` to supercell lattice vectors `a_s` (same as in [VESTA](https://jp-minerals.org/vesta/en/) or the [Bilbao Crystallographic Server](https://www.cryst.ehu.es/cgi-bin/cryst/programs/nph-doc-trmat)):
 
   ```
   a_s(i) = sum_j a_p(j)*P(j,i)      i,j = 1, 2, 3
@@ -48,7 +48,7 @@ Output is written to `WAVECAR_*.f2b` file(s). There is one output file for non-s
     ...
 
 ### Plotting results
-The Matlab code `utils/ubs_dots.m` or the octave code `utils/ubs_bmp.m` are designed to assist with plotting the band structure and the Bloch weights. Please refer to its input section for description of user input variables. Each plotting tool has its own pros/cons. Below is a sample of the Matlab plot for the unfolded band structure of a dilute GaP:N alloy. It is followed by a different style plot of a dynamic band structure in a perovskite lattice generated using Octave `utils/ubs_bmp.m` and gnuplot `utils/f2b-band-structure.plt` from [Phys. Rev. Materials **2**, 114604 (2018)](https://doi.org/10.1103/PhysRevMaterials.2.114604).
+The Matlab code `utils/ubs_dots.m` or the octave code `utils/ubs_bmp.m` are designed to assist with plotting the band structure and the Bloch weights. Please refer to its input section for description of user input variables. Each plotting tool has its own pros/cons. Below is a sample of the MATLAB plot for the unfolded band structure of a dilute GaP:N alloy. It is followed by a different style plot of a dynamic band structure in a perovskite lattice generated using Octave `utils/ubs_bmp.m` and gnuplot `utils/f2b-band-structure.plt` from [Phys. Rev. Materials **2**, 114604 (2018)](https://doi.org/10.1103/PhysRevMaterials.2.114604).
 
 <img src="https://github.com/rubel75/fold2Bloch-VASP/blob/master/graphics/GaP%2BN.png" width="600">
 
