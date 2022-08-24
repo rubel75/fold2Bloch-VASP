@@ -12,7 +12,7 @@ First clone the GitHub repository
 
 `$ git clone https://github.com/rubel75/fold2Bloch-VASP`
 
-The `makefile` is set up for Intel Fortran compiler `ifort`. To compile, simply execute
+The `makefile` is set up for Intel Fortran compiler `ifort` (`gfortran` options are also available, but you need to uncomment several lines). To compile, simply execute
 
 `$ cd fold2Bloch-VASP; make`
 
