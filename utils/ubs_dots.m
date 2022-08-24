@@ -1,5 +1,5 @@
 function ubs_dots
-% Plot undolded band structure
+% Plot unfolded band structure
 %
 % Update history:
 % - added periodic images of the BZ (May 26, 2020)
@@ -83,7 +83,7 @@ for ikp = 1 : size(KPATH,1)-1
                 for iky = -1:1
                     for ikz = -1:1
                         KPERIOD = [ikx iky ikz]; % periodic shift
-                        % transform to Cartezian coords
+                        % transform to Cartesian coords
                         KPERIOD = coordTransform(KPERIOD,G);
                         % evaluate distance to the path
                         dist2 = dp2l( KEIG(j,:) + KPERIOD , ...
@@ -175,9 +175,9 @@ for i = 1:size(V,1)
 end
 % -------------------------------------------------------------------------
 function WRESCL = rescale(W,pwr)
-% rescale weights using a power functio W^pwr
+% rescale weights using a power function W^pwr
 WRESCL=W.^(pwr); % rescale if needed to enhance
-WRESCL = WRESCL + eps; % need eps to make plot "heapy"
+WRESCL = WRESCL + eps; % need eps to make plot "happy"
 % -------------------------------------------------------------------------
 function [KEIG, EIG, W] = readinput(filename)
 % read input data

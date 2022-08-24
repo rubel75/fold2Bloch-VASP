@@ -6,7 +6,7 @@ Utilities that help to generate a list of k points and plot the unfolded band st
 
 MATLAB code that generates a set of k-point on a desired path for unfolding. It produces files `case.klist_band` for WIEN2k and `KPOINTS` for VASP. One can naively think that a regular k-point list used for the band structure plot will also work for unfolding. NO. Here we need a list of k-points that _after_ unfolding will fall onto a desired path and cover it uniformly without gaps. Users are strongly encouraged to use this utility.
 
-### ubs_dots_VASP.m
+### ubs_dots.m
 
 MATLAB code to plot the unfolded band structure as a bubble plot. This is the fastest way to visualize bands.
 

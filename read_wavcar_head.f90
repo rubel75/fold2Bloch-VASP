@@ -7,7 +7,7 @@
 !!! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SUBROUTINE read_wavcar_head(wffname, spinor, & ! <- args in 
-            nrecl, a1, a2, a3, ecut, nwk, nband, nspin) ! -> args out 
+    nrecl, a1, a2, a3, ecut, nwk, nband, nspin) ! -> args out 
 IMPLICIT NONE
 CHARACTER(len=*), INTENT(in) :: wffname ! name of the VASP WF file
 LOGICAL, INTENT(in) :: spinor ! spinor WF
@@ -17,7 +17,7 @@ INTEGER, INTENT(out) :: nwk ! number of k-points
 INTEGER, INTENT(out) :: nband ! number of bands
 REAL(kind=8), INTENT(out) :: ecut ! cut-off energy [eV]
 REAL(kind=8), DIMENSION(1:3), &
-    INTENT(out) :: a1, a2, a3 ! real space lattice vectors [Ang]
+INTENT(out) :: a1, a2, a3 ! real space lattice vectors [Ang]
 INTEGER :: nprec ! precision identifier
 INTEGER :: iost ! I/O status
 INTEGER :: j ! dimension counter
@@ -34,7 +34,7 @@ WRITE(6,*) 'Reading WF file head...'
 INQUIRE (IOLENGTH=nrecl) xnrecl, xnspin, xnprec
 WRITE (6,*) 'nrecl=', nrecl
 OPEN(unit=12, file=TRIM(wffname), access='direct', FORM='UNFORMATTED', &
-    recl=nrecl, iostat=iost, status='old')
+recl=nrecl, iostat=iost, status='old')
 WRITE(*,*) 'iost=', iost
 IF (iost.ne.0) WRITE(6,*) 'open error - iostat =', iost            
 READ(unit=12,rec=1) xnrecl, xnspin, xnprec
@@ -43,31 +43,31 @@ nrecl=nint(xnrecl) ! convert to integers
 nspin=nint(xnspin)
 nprec=nint(xnprec)
 WRITE(6,*) 'record length  =',nrecl,' spins =',nspin, &
-     ' prec flag ',nprec
+' prec flag ',nprec
 
 !! Check spinor option activated correctly
 
 IF((nspin.eq.2) .and. (spinor)) THEN
-    WRITE(6,*) 'The WAVECAR has 2-spin wavefunction, while option [-ncl] is acticated'
-    WRITE(6,*) 'Most likely the wavefunction is not spinor and [-ncl] option should be eliminated'
-    STOP
+WRITE(6,*) 'The WAVECAR has 2-spin wavefunction, while option [-ncl] is activated'
+WRITE(6,*) 'Most likely the wavefunction is not spinor and [-ncl] option should be eliminated'
+STOP
 ENDIF
 
-!! Chech precision compatibility
+!! Check precision compatibility
 
 IF(nprec.eq.45210) THEN
-    WRITE(6,*) '*** error - WAVECAR_double requires complex*16'
-    STOP
+WRITE(6,*) '*** error - WAVECAR_double requires complex*16'
+STOP
 ENDIF
 
 !! Reopen WAVCAR with a proper record length, read 2nd record
 
 OPEN(unit=12, file=wffname, access='direct', FORM='UNFORMATTED', recl=nrecl, &
-     iostat=iost, status='old')
+iostat=iost, status='old')
 WRITE(*,*) 'iost=', iost
 IF (iost.ne.0) WRITE(6,*) 'open error - iostat =', iost
 read(unit=12,rec=2) xnwk,xnband,ecut,(a1(j),j=1,3),(a2(j),j=1,3), &
-     (a3(j),j=1,3)
+(a3(j),j=1,3)
 nwk=nint(xnwk)
 nband=nint(xnband)
 write(6,*) 'no. k points =',nwk

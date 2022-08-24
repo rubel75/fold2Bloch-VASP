@@ -1,7 +1,7 @@
 !!! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!! check_in_args
 !!!
-!!! This subroutine will perform check of the imput arguments that
+!!! This subroutine will perform check of the input arguments that
 !!! are passed in when fold2Bloch is executed. It is expected that
 !!! there are only 2 or 3 arguments:
 !!! WAVECAR (char) and 
@@ -45,7 +45,7 @@ ENDIF
 !! Check the number of input arguments
 
 IF ((nargs .lt. 2) .or. (nargs .gt. 3)) THEN
-    WRITE(6,'(A)') 'Number of imput arguments: ', nargs, &
+    WRITE(6,'(A)') 'Number of input arguments: ', nargs, &
         'while 2 or 3 is expected'
     goto 912 ! show input options and exit with error
 ENDIF
