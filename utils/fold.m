@@ -1,28 +1,49 @@
 function fold
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% This Matlab script is designed to fold a k-path into the BZ of 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% This Matlab/Octave script is designed to fold a k-path into the BZ of 
 % a supercell and produce KPOINTS file for VASP and case.klist_band file 
 % for WIEN2k. The wavefunctions generated with VASP can be unfolded back 
 % to a desired k-path set below.
 %
-% (c) Oleg Rubel, modified Dec 20, 2019
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% (c) Oleg Rubel, modified Jul 30, 2022
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 clear all;
 
 %% User input
 
-kpath = [0 0 0; ...
-         1/2 1/2 1/2;...
-         1/2 1/2 0]; % desired k-path after unfolding
-npath = [17 10]; % # of points along each segment
-folds = [2 2 2]; % multiplicity used to create a supercell
+kpath = [0 0 0
+         0.5 0 0.25
+         0.5 0.5 0.5
+         0 0 0]; % desired k-path after unfolding
+npath = [40 28 28]; % # either the total number of points along each segment
+Dp2s = [1 -1 -2
+        1 1 -2
+        0 0 4]; % matrix used to transform a primitive cell to a supercell
+toldk = 1e-6; % tolerance for round off errors in k values
 
 
 %% Check input
 
 if (size(kpath,1)-1 ~= length(npath))
-    error('dimensions "kpath" and "npath" do not agree')
+    msg = MException('f2b:inpcheck',...
+        'dimensions "kpath" and "npath" do not agree: %d vs %d',...
+        size(kpath,1)-1, length(npath));
+    throw(msg);
+end
+if det(Dp2s) <= 0 % Positive Definite Matrix
+    msg = MException('f2b:inpcheck',...
+        join(['Transformation matrix Dp2s is not a ',...
+        'positive definite matrix: det(Dp2s) = %d']),...
+        det(Dp2s));
+    throw(msg);
+end
+if abs(det(Dp2s) - int16(det(Dp2s))) > toldk % Positive Definite Matrix
+    msg = MException('f2b:inpcheck',...
+        join(['Transformation matrix Dp2s does ',...
+        'not give an integer volume scale: det(Dp2s) = %d']),...
+        det(Dp2s));
+    throw(msg);
 end
 
 
@@ -45,33 +66,40 @@ for i=1:size(kpath,1)-1
     end
 end
 kpr=round(kpr*1e14)/1e14; % round to 14 decimal points
-kpr=unique(kpr,'rows','stable'); % eliminate duplicates
+% eliminate duplicates
+if exist('OCTAVE_VERSION', 'builtin') ~= 0 % Octave
+    kpr=unique(kpr,'rows'); % eliminate and sort
+else % MATLAB
+    kpr=unique(kpr,'rows','stable'); % no sorting
+end
 npt=size(kpr,1); % recalculate number of k-points
 
 ksc = zeros(size(kpr)); % allocate k-list for supercell
 for i=1:npt
-    ksc(i,:) = kpr(i,:).*folds;
+    ksc(i,:) = kpr(i,:)*Dp2s;
 end
 
-% bring k-points coordinates to the range [-0.5, 0.5]
+% bring k-points coordinates to the range [0, 1)
 for i=1:npt
     for j=1:3
-        a = ksc(i,j);
-        if a < 0
-          b = a+1/2;
-          c = floor(b);
-        else
-          b = a-1/2;
-          c = ceil(b);
+        ksc(i,j) = mod( ksc(i,j), 1);
+        if 1-ksc(i,j) < toldk
+            ksc(i,j) = 0;
         end
-        ksc(i,j) = a - c;
     end
 end
 
 % clean up
 ksc=round(ksc*1e14)/1e14; % round to 14 decimal points
-ksc=unique(ksc,'rows','stable'); % eliminate duplicates
+% eliminate duplicates
+if exist('OCTAVE_VERSION', 'builtin') ~= 0 % Octave
+    ksc=unique(ksc,'rows'); % eliminate and sort
+else % MATLAB
+    ksc=unique(ksc,'rows','stable'); % no sorting
+end
 npt=size(ksc,1); % recalculate number of k-points
+msg = [num2str(npt),' unique k points were generated.'];
+disp(msg);
 
 
 %% Write VASP KPOINTS file
@@ -88,6 +116,7 @@ for i=1:npt
     end
 end
 fclose(fileID);
+disp('Generated k points are stored in KPOINTS file (for VASP)');
 
 
 %% Write WIEN2k case.klist_band file
@@ -101,23 +130,36 @@ for i=1:npt
 end
 fprintf(fileID, '%s', 'END'); % append the k-list file
 fclose(fileID);
+disp('Generated k points are stored in case.klist_band file (for WIEN2k)');
 
+% Nested functions
 % -------------------------------------------------------------------------
-function out = real2rat(V, outsizemax)
-% transform vector V(1:3) into the ratio of integers nout(1:3)/dout
-%
-[n,d] = rat(V); % bring rational numbers to the form n/d
-dout = lcm(d(1),d(2)); % determine a common multiplier
-dout = lcm(d(3),dout);
-nout = n*dout./d; % scale by the common multiplier
-out = [nout, dout]; % append common divisor
-outsize = max(ceil(log10(abs(out))),1); % size of the output integer
-% check if the integers are compatible with the output format
-if any(outsize > outsizemax) 
-    disp('out ='); disp(outsize);
-    disp('outsize ='); disp(outsize);
-    disp('outsizemax ='); disp(outsizemax);
-    msg = 'Integer size exceeds the output format.';
-    error(msg);
-end
-
+    function out = real2rat(V, outsizemax)
+    % transform vector V(1:3) into the ratio of integers nout(1:3)/dout
+        [n,d] = rat(V); % bring rational numbers to the form n/d
+        dout = lcm(d(1),d(2)); % determine a common multiplier
+        dout = lcm(d(3),dout);
+        nout = n*dout./d; % scale by the common multiplier
+        out = [nout, dout]; % append common divisor
+        outsize = max(ceil(log10(abs(out))),1); % size of the output integer
+        % check if the integers are compatible with the output format
+        if any(outsize > outsizemax) 
+            disp('out ='); disp(outsize);
+            disp('outsize ='); disp(outsize);
+            disp('outsizemax ='); disp(outsizemax);
+            msg = 'Integer size exceeds the output format.';
+            error(msg);
+        end
+        % check accuracy of the transform
+        errorOK = 1e-6;
+        errork = V - nout./dout;
+        if any(abs(errork) > errorOK)
+            disp('WARNING:')
+            disp('  k ='); disp(V);
+            disp('  k1 k2 k3 kdivisor ='); disp(out);
+            disp('  k1/kdivisor k2/kdivisor k3/kdivisor ='); disp(nout./dout);
+            disp('  max abs k error ='); disp(abs(errork));
+            disp('  tolerable error ='); disp(errorOK);
+        end
+    end % function real2rat
+end % function fold
