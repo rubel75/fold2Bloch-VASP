@@ -208,7 +208,7 @@ PROGRAM fold2Bloch
             inquire(unit=idf2b, name=f2bfile)
             WRITE(6,'(A)') "Data were written to: "//trim(f2bfile)
         ENDIF
-        WRITE(6,'(A)') "Data format: KX, KY, KZ, Eigenvalue(eV), Bloch weight"
+        WRITE(6,'(A)') "Data format: k_1, k_2, k_3, Eigenvalue (eV), Bloch weight"
         WRITE(6,'(A)') "Try plotting tools available from "//&
             "https://github.com/rubel75/fold2Bloch-VASP/tree/master/utils"
         WRITE(6,'(A)') "You will need reciprocal lattice vectors "//&
